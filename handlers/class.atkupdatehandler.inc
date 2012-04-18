@@ -38,7 +38,7 @@
      *
      * @var string
      */
-    private $m_editAction = 'edit';
+    protected $m_editAction = 'edit';
 
     /**
      * The action handler method.
@@ -235,7 +235,7 @@
      * @param array $record Record to update
      * @return mixed Result of the update, true, false or string with error
      */
-    private function updateRecord(&$record)
+    protected function updateRecord(&$record)
     {
       $atkstoretype = "";
       $sessionmanager = atkGetSessionManager();
@@ -254,7 +254,7 @@
      * @param array $record Record to update
      * @return mixed Result of the update, true, false or string with error
      */
-    private function updateRecordInDb(&$record)
+    protected function updateRecordInDb(&$record)
     {
       $db = &$this->m_node->getDb();
       if ($this->m_node->updateDb($record))
@@ -283,7 +283,7 @@
      * @param array $record Record to update
      * @return mixed Result of the update, true or false
      */
-    private function updateRecordInSession($record)
+    protected function updateRecordInSession($record)
     {
       $selector = atkArrayNvl($this->m_postvars, 'atkselector','');
       return (atkinstance('atk.session.atksessionstore')->updateDataRowForSelector($selector, $record)!==false);
@@ -393,7 +393,7 @@
      *
      * @param unknown_type $attrRefreshUrl
      */
-    private function loadSuccessDialog($record, $extraParams)
+    protected function loadSuccessDialog($record, $extraParams)
     {
       atkimport("atk.ui.atkdialog");
       $script = atkDialog::getCloseCall();
@@ -417,7 +417,7 @@
      *
      * @param array $record Record that failed update
      */
-    private function loadEditDialogWithErrors($record)
+    protected function loadEditDialogWithErrors($record)
     {
       // Re-render the edit dialog.
       global $ATK_VARS;
