@@ -52,6 +52,8 @@
     var $m_topsearchpiece;
     var $m_topcenterpiecelinks;
     var $m_title;
+    var $m_extrabodyprops;
+    var $m_extraheaders;
     var $m_username;
     var $m_defaultDestination;
     var $m_flags;
@@ -105,7 +107,14 @@
 
       $this->atkGenerateDispatcher();
 
-      $this->m_output->output($this->m_page->render($this->m_title != "" ? $this->m_title : null, $this->m_flags));
+      $this->m_output->output(
+          $this->m_page->render(
+              $this->m_title != "" ? $this->m_title : null, 
+              $this->m_flags,
+              $this->m_extrabodyprops != "" ? $this->m_extrabodyprops : null,
+              $this->m_extraheaders != "" ? $this->m_extraheaders : null
+          )
+      );
       $this->m_output->outputFlush();
     }
 
@@ -130,17 +139,19 @@
      */
     function atkGenerateTop()
     {
+       $logoutLink = atkconfig('dispatcher') . '?atklogout=1';
+
       $this->m_page->register_style($this->m_theme->stylePath("style.css"));
       $this->m_page->register_style($this->m_theme->stylePath("top.css"));
 
       //Backwards compatible $content, that is what will render when the box.tpl is used instead of a top.tpl
       $loggedin = atkText("logged_in_as", "atk").": <b>".($this->m_user["name"]?$this->m_user['name']:'administrator')."</b>";
-      $content = '<br />'.$loggedin.' &nbsp; <a href="index.php?atklogout=1">'.ucfirst(atkText("logout")).' </a>&nbsp;<br /><br />';
+      $content = '<br />'.$loggedin.' &nbsp; <a href="'. $logoutLink .'">'.ucfirst(atkText("logout")).' </a>&nbsp;<br /><br />';
 
       $top = $this->m_ui->renderBox(array("content"=> $content,
         "logintext" => atktext("logged_in_as"),
         "logouttext" => ucfirst(atkText("logout", "atk")),
-        "logoutlink" => "index.php?atklogout=1",
+        "logoutlink" => $logoutLink,
         "logouttarget"=>"_top",
         "centerpiece_links"=>$this->m_topcenterpiecelinks,
         "searchpiece"=>$this->m_topsearchpiece,
@@ -180,6 +191,26 @@
     function setTitle($title)
     {
       $this->m_title = $title;
+    }
+
+     /**
+     * Set the extra body properties of the page
+     *
+     * @param string $extrabodyprops
+     */
+    function setBodyprops($extrabodyprops)
+    {
+      $this->m_extrabodyprops = $extrabodyprops;
+    }
+
+     /**
+     * Set the extra headers of the page
+     *
+     * @param string $extraheaders
+     */
+    function setExtraheaders($extraheaders)
+    {
+      $this->m_extraheaders = $extraheaders;
     }
 
     /**

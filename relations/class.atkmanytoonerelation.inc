@@ -184,6 +184,14 @@ class atkManyToOneRelation extends atkRelation
   var $m_autocomplete_minrecords = -1;
 
   /**
+   * Set the size attribute of the autocompletion input element
+   *
+   * @access protected
+   * @var integer
+   */
+  protected $m_autocomplete_size = 30;
+
+  /**
    * Destination node for auto links (edit, new)
    *
    * @var string
@@ -372,6 +380,16 @@ class atkManyToOneRelation extends atkRelation
   function setAutoCompleteMinRecords($minrecords)
   {
     $this->m_autocomplete_minrecords = $minrecords;
+  }
+
+  /**
+   * Set the size of the rendered autocompletion input element
+   *
+   * @param integer $size
+   */
+  function setAutoCompleteSize($size)
+  {
+    $this->m_autocomplete_size = $size;
   }
 
   /**
@@ -792,7 +810,7 @@ class atkManyToOneRelation extends atkRelation
       $this->m_selectableRecords = $this->_getSelectableRecords($record, 'select');
 
       if (count($this->m_selectableRecords) > 0 &&
-          !atkconfig("list_obligatory_null_item") &&
+          !$this->getConfigOptionObligatoryNullOption() &&
           (($this->hasFlag(AF_OBLIGATORY) && !$this->hasFlag(AF_MANYTOONE_OBLIGATORY_NULL_ITEM)) ||
            (!$this->hasFlag(AF_OBLIGATORY) && $this->hasFlag(AF_RELATION_NO_NULL_ITEM))))
       {
@@ -827,6 +845,15 @@ class atkManyToOneRelation extends atkRelation
     {
       $this->populate($record);
     }
+  }
+
+  /**
+   * Returns the configuration option called: list_obligatory_null_item, which is a
+   * boolean.
+   * @return boolean
+   */
+  public function getConfigOptionObligatoryNullOption() {
+    return atkconfig("list_obligatory_null_item");
   }
 
   /**
@@ -901,21 +928,22 @@ class atkManyToOneRelation extends atkRelation
         $this->registerKeyListener($id, KB_CTRLCURSOR|KB_LEFTRIGHT);
         $this->registerJavaScriptObservers($id);
 
-        $result = '<select id="'.$id.'" name="'.$id.'" class="atkmanytoonerelation" '.$onchange.'>';
+		// AGX
+        $result = '<select autocomplete="off" id="'.$id.'" name="'.$id.'" class="atkmanytoonerelation" '.$onchange.'>';
 
         // relation may be empty, so we must provide an empty selectable..
         if ($this->hasFlag(AF_MANYTOONE_OBLIGATORY_NULL_ITEM) ||
             (!$this->hasFlag(AF_OBLIGATORY) && !$this->hasFlag(AF_RELATION_NO_NULL_ITEM)) ||
-            (atkconfig("list_obligatory_null_item") && !is_array($value)))
+            ($this->getConfigOptionObligatoryNullOption() && !is_array($value)))
         {
-          $result.= '<option value="">'.$this->getNoneLabel();
+          $result.= '<option value="">'.$this->getNoneLabel().'</option>';
         }
 
         foreach ($recordset as $selectable)
         {
           $pk = $this->getDestination()->primaryKey($selectable);
           $sel = $pk == $currentPk ? 'selected="selected"' : '';
-          $result .= '<option value="'.$pk.'" '.$sel.'>'.str_replace(' ', '&nbsp;', atk_htmlentities($this->m_destInstance->descriptor($selectable)));
+          $result .= '<option value="'.$pk.'" '.$sel.'>'.str_replace(' ', '&nbsp;', atk_htmlentities(strip_tags($this->m_destInstance->descriptor($selectable)))).'</option>';
         }
 
         $result .= '</select>';
@@ -1158,7 +1186,8 @@ class atkManyToOneRelation extends atkRelation
 
         $recordset = $this->_getSelectableRecords($record, 'search');
 
-        $result = '<select class="'.get_class($this).'" ';
+		// AGX
+        $result = '<select autocomplete="off" class="'.get_class($this).'" ';
         if ($extended)
         {
           $result.='multiple size="'.min(5,count($recordset)+1).'"';
@@ -1193,7 +1222,7 @@ class atkManyToOneRelation extends atkRelation
 
           if (is_array($record)&&isset($record[$this->fieldName()])&&
           atk_in_array($pk, $record[$this->fieldName()])) $sel = "selected"; else $sel = "";
-          $result.= '<option value="'.$pk.'" '.$sel.'>'.str_replace(' ', '&nbsp;', atk_htmlentities($this->m_destInstance->descriptor($recordset[$i]))).'</option>';
+          $result.= '<option value="'.$pk.'" '.$sel.'>'.str_replace(' ', '&nbsp;', atk_htmlentities(strip_tags($this->m_destInstance->descriptor($recordset[$i])))).'</option>';
         }
         $result.='</select>';
         return $result;
@@ -1431,7 +1460,7 @@ class atkManyToOneRelation extends atkRelation
               $value = $fk->value2db($value);
             }
 
-            $query->addField($this->m_refKey[$i],$value,"","",!$this->hasFlag(AF_NO_QUOTES));
+            $query->addField($this->m_refKey[$i],$value,"","",!$this->hasFlag(AF_NO_QUOTES), true);
           }
         }
       }
@@ -1999,10 +2028,11 @@ class atkManyToOneRelation extends atkRelation
     {
       if (strpos($key, $needle) !== 0) continue;
       
-      $order = $arr['heading'][$key]['order'];
-      if (empty($order)) continue;
-      
-      $order = $this->fieldName().'.'.$order;
+      if (empty($arr['heading'][$key]['order'])) {
+          continue;
+      }
+
+      $order = $this->fieldName() .'.'. $arr['heading'][$key]['order'];
 
       if (is_object($atkorderby) &&
       isset($atkorderby->m_colcfg[$this->fieldName()])
@@ -2222,7 +2252,7 @@ class atkManyToOneRelation extends atkRelation
 
     $result =
         '<input type="hidden" id="'.$id.'" name="'.$id.'" value="'.$value.'" />
-         <input type="text" id="'.$id.'_search" value="'.atk_htmlentities($label).'" class="atkmanytoonerelation_search" size="30" onfocus="this.select()" />
+         <input type="text" id="'.$id.'_search" value="'.atk_htmlentities($label).'" class="atkmanytoonerelation_search" size="'.$this->m_autocomplete_size.'" onfocus="this.select()" />
          <img id="'.$id.'_spinner" src="atk/images/spinner.gif" style="vertical-align: middle; display: none"> '.$links.'
          <div id="'.$id.'_result" style="display: none" class="atkmanytoonerelation_result"></div>';
 
@@ -2272,7 +2302,7 @@ class atkManyToOneRelation extends atkRelation
     $result = '';
     foreach ($records as $rec)
     {
-      $option = atk_htmlentities($this->m_destInstance->descriptor($rec));
+      $option = atk_htmlentities(strip_tags($this->m_destInstance->descriptor($rec)));
       $value = $this->m_destInstance->primaryKey($rec);
       $highlightedOption = $this->highlight_search_result_match($searchvalue, $option);
       $result .= '
@@ -2335,7 +2365,12 @@ class atkManyToOneRelation extends atkRelation
     else
     $searchfields = $this->m_autocomplete_searchfields;
 
+	/* AGX: better search */
+	/*
     $parts = preg_split('/\s+/', $searchvalue);
+	*/
+	$parts = array($searchvalue);
+	/* END */
 
     $mainFilter = array();
     foreach ($parts as $part)
@@ -2459,9 +2494,10 @@ class atkManyToOneRelation extends atkRelation
 
         atkimport("atk.utils.atkstringparser");
         $parser = new atkStringParser($descriptordef);
-        $concatFields = $parser->getAllParsedFieldsAsArray($fields, true);
-        $concatTags       = $concatFields['tags'];
-        $concatSeparators = $concatFields['separators'];
+        $concatFields       = $parser->getAllParsedFieldsAsArray($fields, true);
+        $concatTags         = $concatFields['tags'];
+        $concatSeparators   = $concatFields['separators'];
+        $concatSeparators[] = ' '; //the query removes all spaces, so let's do the same here [Bjorn]
 
         // to search independent of characters between tags, like spaces and comma's,
         // we remove all these separators so we can search for just the concatenated tags in concat_ws [Jeroen]

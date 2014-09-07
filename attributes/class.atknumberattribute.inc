@@ -524,7 +524,9 @@
 
       $this->registerJavaScriptObservers($id);
 
-      $size    = $this->m_size;
+      /* AGX */
+	  $size    = intval($this->m_size);
+      /* END */
       $maxsize = $this->m_maxsize;
       if ($this->getDecimals()>0)
       {

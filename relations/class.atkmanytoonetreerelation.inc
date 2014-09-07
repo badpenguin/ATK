@@ -69,7 +69,8 @@
       }
       $recordset = $this->m_destInstance->selectDb("",$this->m_destInstance->m_primaryKey[0],"","",$tmp2);
       $this->m_current = $this->m_ownerInstance->primaryKey($record);
-      $result = '<select name="'.$fieldprefix.$this->formName().'">';
+	  // AGX
+      $result = '<select autocomplete="off" name="'.$fieldprefix.$this->formName().'">';
 
       if ($this->hasFlag(AF_OBLIGATORY)==false)
       {
@@ -95,7 +96,8 @@
       }
       $recordset = $this->m_destInstance->selectDb("","","","",atk_array_merge($this->m_destInstance->descriptorFields(),$this->m_destInstance->m_primaryKey));
 
-      $result = '<select name="atksearch['.$this->fieldName().']">';
+	  // AGX
+      $result = '<select autocomplete="off" name="atksearch['.$this->fieldName().']">';
 
       $pkfield = $this->m_destInstance->primaryKeyField();
 

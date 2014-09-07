@@ -205,6 +205,13 @@
         return false;
       }
     }
+	
+	/* AGX */
+    public function getWrapMode()
+    {
+      return 'soft';
+    }
+	/* END */
 
     /**
      * Display default tags

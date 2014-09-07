@@ -99,6 +99,9 @@
     function display($record)
     {
 	  	$value = $record[$this->fieldName()];
+	  /* AGX */
+	  if (!is_array($value)) return '';
+	  /* END */
       if ($value["hours"] === "") return "";
       $tmp_time = sprintf("%02d:%02d", $value["hours"], $value["minutes"]);
       if ($value["seconds"] && $this->hasFlag(AF_TIME_SECONDS)) $tmp_time.=sprintf(":%02d", $value["seconds"]);
@@ -178,7 +181,8 @@
       $this->registerKeyListener($id.'[hours]', KB_CTRLCURSOR|KB_LEFTRIGHT);
       $this->registerKeyListener($id.'[minutes]', KB_CTRLCURSOR|KB_LEFTRIGHT);
       $this->registerKeyListener($id.'[seconds]', KB_CTRLCURSOR|KB_LEFTRIGHT);
-      $m_hourBox = '<select id="'.$id.'[hours]" name="'.$id."[hours]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
+	  // AGX
+      $m_hourBox = '<select autocomplete="off" id="'.$id.'[hours]" name="'.$id."[hours]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
       $m_minBox  = '<select id="'.$id.'[minutes]" name="'.$id."[minutes]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
       $m_secBox  = '<select id="'.$id.'[seconds]" name="'.$id."[seconds]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
       // set default values for both boxes
@@ -274,7 +278,8 @@
       }
       else
       {
-        $m_secBox = "<input type=\"hidden\" name=\"".$fieldprefix.$this->fieldName()."[seconds]\" value=\"00\">\n";
+		/* AGX: fix missing ID */
+        $m_secBox = "<input type=\"hidden\" id=\"".$fieldprefix.$this->fieldName()."[seconds]\" name=\"".$fieldprefix.$this->fieldName()."[seconds]\" value=\"00\">\n";
       }
 
       // assemble display version

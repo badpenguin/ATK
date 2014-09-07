@@ -483,6 +483,13 @@
     var $m_label = "";
 
     /**
+     * The postfix label of the attribute.
+     * @access private
+     * @var String
+     */
+    var $m_postfixlabel = "";
+
+    /**
      * The searchmode for this attribute
      *
      * This var exists so that you can assign searchmodes to specific
@@ -1321,7 +1328,7 @@
       }
       else
       {
-        return $this->display($defaults, $mode);
+        return $this->display($defaults, $mode).(strlen($this->m_postfixlabel) > 0 ? "&nbsp;".$this->m_postfixlabel : "");
       }
     }
 
@@ -1411,7 +1418,7 @@
       }
       else
       {
-        return $this->edit($defaults, $fieldprefix, $mode);
+        return $this->edit($defaults, $fieldprefix, $mode).(strlen($this->m_postfixlabel) > 0 ? "&nbsp;".$this->m_postfixlabel : "");
       }
     }
 
@@ -1599,7 +1606,8 @@
 
       if ($extended && count($searchModes) > 1)
       {
-        $field = '<select name="'.$this->getSearchModeFieldname($fieldprefix).'">';
+		// AGX: autocomplete
+        $field = '<select autocomplete="off" name="'.$this->getSearchModeFieldname($fieldprefix).'">';
 
         foreach ($searchModes as $value)
         {
@@ -2229,6 +2237,18 @@
     }
 
     /**
+     * Set the label of the attribute
+     *
+     * @param string $label
+     * @return atkAttribute The instance of this atkAttribute
+     */
+    function setPostFixLabel($label)
+    {
+      $this->m_postfixlabel = $label;
+      return $this;
+    }
+
+    /**
      * Get the module that this attribute originated from.
      *
      * By default, this is the module of the owning node of this attribute.
@@ -2648,7 +2668,8 @@
         }
       }
 
-      $res.= '<select name="atkcolcmd[][setorder]['.$fieldprefix.$fieldname.']">';
+	  // AGX: autocomplete
+      $res.= '<select autocomplete="off" name="atkcolcmd[][setorder]['.$fieldprefix.$fieldname.']">';
       $res.= '<option value="">';
       for ($i=1; $i<6; $i++)
       {

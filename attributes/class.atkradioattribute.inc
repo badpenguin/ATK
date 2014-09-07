@@ -179,7 +179,8 @@
         
         $commenthtml = '<br/><div class="atkradio_comment">'.$this->m_comments[$i].'</div>';
 
-        $result .= '<td><input id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$i].'" '.$onchange.$sel.'>
+		// AGX
+        $result .= '<td><input autocomplete="off" id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$i].'" '.$onchange.$sel.'>
         '.$this->renderValue($labelID,$this->_translateValue($values[$i],$record)).($this->hasFlag(AF_DISPLAY_VERT) && $this->m_comments[$i] != '' ? $commenthtml : '').'</td>';
         
         if($this->hasflag(AF_DISPLAY_VERT))
@@ -206,7 +207,8 @@
             }
             if($values[$j]!="")
             {
-              $result .= '<td><input id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$j].'" '.$onchange.$sel.'>
+			  // AGX
+              $result .= '<td><input autocomplete="off" id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$j].'" '.$onchange.$sel.'>
               '.$this->renderValue($labelID,$this->_translateValue($values[$j],$record)).($this->m_comments[$i] != '' ? $commenthtml : '').'</td>';
             }
             else

@@ -425,7 +425,8 @@ class atkExtendableShuttleRelation extends atkManyToManyRelation
     }
 
     $valName = $this->getHtmlId($fieldprefix).'[selected][]['.$this->getRemoteKey().']';
-    $result = '<select class="shuttle_select" id="'.$name.'" name="'.$name.'" multiple size="10" onDblClick="shuttle_move(\''.$name.'\', \''.$opposite.'\',\''.$action.'\',\''.$valName.'\');'.$onchangecode.'">';
+	// AGX
+    $result = '<select autocomplete="off" class="shuttle_select" id="'.$name.'" name="'.$name.'" multiple size="10" onDblClick="shuttle_move(\''.$name.'\', \''.$opposite.'\',\''.$action.'\',\''.$valName.'\');'.$onchangecode.'">';
 
     $parser = null;
     // Only import the stringparser once.

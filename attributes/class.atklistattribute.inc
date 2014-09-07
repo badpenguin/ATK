@@ -274,6 +274,7 @@
       // todo: configurable rows
       $id = $this->getHtmlId($fieldprefix);
       $this->registerKeyListener($id, KB_CTRLCURSOR|KB_LEFTRIGHT);
+      $this->registerJavaScriptObservers($id);
 
       $onchange='';
       if (count($this->m_onchangecode))
@@ -282,7 +283,8 @@
         $this->_renderChangeHandler($fieldprefix);
       }
 
-      $result = '<select id="'.$id.'" name="'.$id.'"  class="atklistattribute" '.$onchange.($this->m_width?" style='width: {$this->m_width}px'":"").'>';
+	  // AGX
+      $result = '<select autocomplete="off" id="'.$id.'" name="'.$id.'"  class="atklistattribute" '.$onchange.($this->m_width?" style='width: {$this->m_width}px'":"").'>';
 
       $result.=$this->_addEmptyListOption();
 
@@ -359,7 +361,8 @@
     function search($record="", $extended=false, $fieldprefix="", $grid=null)
     {
       $values = $this->getValues($record);
-      $result = '<select ';
+	  // AGX
+      $result = '<select autocomplete="off" ';
       if ($extended)
       {
         $result.='multiple size="'.min(5,count($values)+1).'"';

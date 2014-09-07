@@ -403,10 +403,16 @@
                 $valArr[] = $name;
               else
               {
+				/* AGX: manage non object situations */
                 if (is_object($value))
+				{
                   $valArr[] = sprintf("%s=Object(%s)", $name, get_class($value));
-                else
+                } elseif (is_array($value)) {
+                  $valArr[] = sprintf("%s=Array(%s)", $name, count($value));
+                } else {
                   $valArr[] = $name."=".$value;
+				}
+				/* END */
               }
             }
             $stringval = "array(".implode(", ", $valArr).")";
@@ -1118,10 +1124,19 @@
     }
     else
     {
-      $attribName = $attrib->fieldName();
-      $label = $attrib->label($record);
-      $tab = $attrib->m_tabs[0];
-      $message = $attrib->text($error);
+		/* AGX: manage non object situations */
+		if (is_object($attribName)) {
+			$attribName = $attrib->fieldName();
+			$label = $attrib->label($record);
+			$tab = $attrib->m_tabs[0];
+			$message = $attrib->text($error);
+		} else {
+			$attribName = 'unknown';
+			$label = 'unknown';
+			$tab = 'unknown';
+			$message = 'unknown';
+		}
+		/* END */
     }
 
     triggerError($record, $attribName, $error, $message, $tab, $label);
@@ -1447,7 +1462,8 @@
       foreach ($ATK_VARS as $key => $val)
       {
         if (!in_array($key, $excludes))
-          $str .= "<input type='hidden' name=\"$key\" value=\"".atk_htmlentities(strval($val))."\">\n";
+		  /* AGX: atk 7.0 fix */
+          $str .= "<input type='hidden' name=\"".atk_htmlentities(strval($key))."\" value=\"".atk_htmlentities(strval($val))."\">\n";
       }
       return $str;
     }

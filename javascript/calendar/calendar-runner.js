@@ -57,6 +57,19 @@ function changeWidget(cal, date)
 {
   ATK.DateAttribute.setValue(cal.dateattrId, { year: date.substr(0,4), month: parseInt(date.substr(5,2), 10), day: parseInt(date.substr(8,2), 10) });
   cal.hide();
+  return;
+  /* AGX: experiment */
+  /* PATCH: allow "dependency" to work when closing the calendar */
+  var fnchange = calendar.dateattrId + '_onChange';
+  if(typeof eval(fnchange) == 'function') {
+	//var fncb = fnchange+'(calendar.sel)';
+	// eval(fncb) => does not work, will reset values of visual calendar
+	var fncb = fnchange+'(document.getElementById("'+calendar.bindname+'"));';
+	console.log(fncb);
+	eval(fncb);
+	//setInterval( fncb, 100 );
+  }
+  /* END */
 }
 
 function changeTextField(cal, date)

@@ -553,14 +553,19 @@
     protected function _extractSelectedRecordsByKey($record)
     {
       $selectedRecordsByKey = array();
-      foreach ($record[$this->fieldName()] as $selectedRecord)
-      {
-        $selectedKey = 
-          is_array($selectedRecord[$this->getRemoteKey()]) ?
-          $selectedRecord[$this->getRemoteKey()][$this->getDestination()->primaryKeyField()] :
-          $selectedRecord[$this->getRemoteKey()];
+      
+      if (isset($record[$this->fieldName()])) {
+      
+        foreach ($record[$this->fieldName()] as $selectedRecord)
+        {
+          $selectedKey = 
+            is_array($selectedRecord[$this->getRemoteKey()]) ?
+            $selectedRecord[$this->getRemoteKey()][$this->getDestination()->primaryKeyField()] :
+            $selectedRecord[$this->getRemoteKey()];
   
-        $selectedRecordsByKey[$selectedKey] = $selectedRecord;
+          $selectedRecordsByKey[$selectedKey] = $selectedRecord;
+        }
+      
       }
   
       return $selectedRecordsByKey;      
@@ -574,6 +579,11 @@
     protected function _deleteRecord($record)
     {
       $selector = $this->getLink()->primaryKey($record);
+      
+      if (empty($selector)) {
+          atkerror('primaryKey-selector for link node is empty. Did you add an AF_PRIMARY flag to the primary key field(s) of the intermediate node? Deleting records aborted to prevent dataloss.');
+          return false;
+      }
   
       // append the store deletion filter (if set)
       if (!empty($this->m_store_deletion_filter))
@@ -765,7 +775,8 @@
   
       // now select all records
       $recordset = $this->m_destInstance->selectDb("","","","*",atk_array_merge($this->m_destInstance->descriptorFields(),$this->m_destInstance->m_primaryKey));
-      $result = '<select ';
+	  // AGX
+      $result = '<select autocomplete="off" ';
       if ($extended)
       {
         $result.='multiple="multiple" size="'.min(5,count($recordset)+1).'"';

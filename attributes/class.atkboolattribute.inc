@@ -197,9 +197,10 @@
     {
     	if ($this->hasFlag(AF_BOOL_DISPLAY_CHECKBOX))
     	{
+			// AGX: autocomplete
     		return '
     		  <div align="center">
-    		    <input type="checkbox" disabled="disabled" '.($record[$this->fieldName()] ? 'checked="checked"' : '').' />
+    		    <input autocomplete="off" type="checkbox" disabled="disabled" '.($record[$this->fieldName()] ? 'checked="checked"' : '').' />
     		  </div>
     		';
     	}

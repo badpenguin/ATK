@@ -1,14 +1,15 @@
 Author
 ------
-Ivo Jansch             <ivo at ibuildings.com>
+Ivo Jansch             <ivo at egeniq.com>
 
 Maintainer
 ----------
-Peter Verhage          <peter at ibuildings.com>
+Antonio Gallo		   <agx at linux.it>	// only for this fork!
 
 Additional Development
 ----------------------
 Sandy Pleyte           <sandy at achievo.org>
+Peter Verhage          <peter at egeniq.com>
 Martin Roest           <martin at ibuildings.nl>
 Boy Baukema            <boy at ibuildings.nl>
 Yury Golovnya          <yury at achievo.org>
@@ -44,6 +45,10 @@ development of new features.
   added the atkShuttleRelation, enhanced the atkFckAttribute and added the
   autonumbering feature to atkFileAttribute. Zicht also sponsored a large part
   of the atkMlWrapper functionality.
+
+* Egeniq, The Netherlands (http://www.egeniq.com)  is the new company of 
+  ATK's original author and occasionally contributes new features and 
+  bugfixes.
 
 To become a sponsor, please contact us at http://www.ibuildings.com/contact/.
 
@@ -247,6 +252,7 @@ Alfred Armstrong
 Matthieu Giroux
 Matthijs van den Bos [Matthijs]
 Jos Huiting [jhuiting]
+Daan van Renterghem [DVR]
 
 Names between [] are the names they are refered by in the CHANGES file. (If
 different from their first name).

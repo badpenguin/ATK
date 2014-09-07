@@ -121,7 +121,8 @@ class atkManyToManyListRelation extends atkManyToManyRelation
     $name = $fieldprefix.$this->fieldName();
 
     $size = $this->autoCalculateRows() ? min(count($selectable), $this->getRows()) : $this->getRows();
-    $result = '<select id="'.$id.'" name="'.$name.'[]['.$this->getRemoteKey().']" multiple="multiple" size="'.$size.'" style="width: '.$this->getWidth().'px">';    
+	// AGX
+    $result = '<select autocomplete="off" id="'.$id.'" name="'.$name.'[]['.$this->getRemoteKey().']" multiple="multiple" size="'.$size.'" style="width: '.$this->getWidth().'px">';    
     
     foreach ($selectable as $row)
     {

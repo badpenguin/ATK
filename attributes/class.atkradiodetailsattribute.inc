@@ -125,8 +125,9 @@ class atkRadioDetailsAttribute extends atkAttribute
         $onChange = "ATK.RadioDetailsAttribute.select(this);";
       }
 
+	  // AGX
       $result .= '
-        <input type="radio" class="atkradiodetailsattribute-option" name="'.$name.'" id="'.$name.'_'.$value.'" value="'.$value.'" onchange="'.$onChange.'"'.$checked.'/>
+        <input autocomplete="off" type="radio" class="atkradiodetailsattribute-option" name="'.$name.'" id="'.$name.'_'.$value.'" value="'.$value.'" onchange="'.$onChange.'"'.$checked.'/>
         <label for="'.$name.'_'.$value.'">'.$this->text($label).'</label><br/>
       ';
 

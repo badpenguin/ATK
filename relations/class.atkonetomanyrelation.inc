@@ -659,6 +659,15 @@
       $dialog->setTitle($title);
       $dialog->setModifierObject($this->m_destInstance);
       $dialog->setSessionStatus(SESSION_PARTIAL);
+	  /* AGX: fix dialog width */
+	  $width = atkconfig('dialog_width');
+	  if ($width=='auto') {
+		$dialog->setAutoSize();
+	  } else
+	  if ($width>0) {
+		$dialog->setWidth($width);
+	  }
+	  /* END */
       $onClick = $dialog->getCall();
 
       return '<a href="javascript:void(0)" onclick="'.$onClick.'" class="valignMiddle">'.$this->getAddLabel().'</a>';

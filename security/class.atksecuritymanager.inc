@@ -255,14 +255,12 @@
       if (isset($ATK_VARS["atklogout"]) && (!isset($session["relogin"])||$session["relogin"]!=1))
       {
         $this->notifyListeners("preLogout", $auth_user);
+        $currentUser = &atkGetUser();
 
-        session_destroy();
-
-        $cookie_params = session_get_cookie_params();
-        $cookiepath   = atkconfig("application_root");
-        $cookiedomain = (atkconfig("cookiedomain") != "") ? atkconfig("cookiedomain") : NULL;
-        session_set_cookie_params($cookie_params["lifetime"], $cookiepath, $cookiedomain);
-        @session_start();
+        // Let the authentication plugin know about logout too.
+        foreach ($this->m_authentication as $auth) {
+            $auth->logout($currentUser);
+        }
         $session = array();
         $session["relogin"]=1;
 
@@ -352,6 +350,10 @@
             else
             {
               $response = AUTH_MISMATCH;
+			  /* AGX */
+			  $this->log(1,"failed Login $auth_user from ". $_SERVER['REMOTE_ADDR']);
+			  $this->notifyListeners("failedLogin", $auth_user);
+			  /* END */
             }
           }
 
@@ -655,7 +657,7 @@
       $tplvars["content"]=$output;
       $page->addContent($ui->render("login.tpl", $tplvars));
       $o = &atkOutput::getInstance();
-      $o->output($page->render(atktext("app_title")));
+      $o->output($page->render(atktext("app_title"), HTML_STRICT, "", $ui->render("login_meta.tpl")));
     }
 
     /**

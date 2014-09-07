@@ -29,25 +29,65 @@
      */
     public static function loadGlobals()
     {
-      foreach (array_keys($GLOBALS) as $key)
-      {
-        if (substr($key, 0, 7) == 'config_')
-        {
-          global $$key;
-        }
-      }
-      
-      require_once($config_atkroot."atk/defaultconfig.inc.php");
-      require_once($config_application_dir."config.inc.php");
-      
-      foreach (get_defined_vars() as $key => $value)
-      {
-        if (substr($key, 0, 7) == 'config_')
-        {
-          global $$key;
+      $overrides = array();
+
+      // Put all "config_" globals as variables in the function scope
+      foreach ($GLOBALS as $key => $value) {
+        if (substr($key, 0, 7) === 'config_') {
+
           $$key = $value;
+
+          // Store the current value, so that we can restore it later. Since our includes below here, depend on
+          // some of these variables, we can't simply change the ordering of this process. Also we can't use
+          // $GLOBALS, due to the use of the global keyword later on.
+          $overrides[$key] = $GLOBALS[$key];
         }
       }
+
+      // Include the defaults
+      require_once $config_atkroot ."atk/defaultconfig.inc.php";
+
+      // Get the application config, this is leading and will override all previously defined configuration values.
+      $applicationConfig = self::getApplicationConfig($config_application_dir);
+
+      // Merge everything we got, including variables defined in our application config and configuration defined
+      // prior to constructing atkConfig
+      $allVars = array_merge(
+        get_defined_vars(),
+        $applicationConfig
+      );
+
+      // Get all defined config variables, make then global and update their value
+      foreach ($allVars as $key => $value)
+      {
+        if (substr($key, 0, 7) === 'config_')
+        {
+          // Reference the variable to the global scope
+          global $$key;
+
+          // If a key was previously defined, use that instead of the default value.
+          if (array_key_exists($key, $applicationConfig)) {
+            $$key = $applicationConfig[$key];
+          } else if (array_key_exists($key, $overrides)) {
+            $$key = $overrides[$key];
+          } else {
+            $$key = $value;
+          }
+        }
+      }
+    }
+
+    /**
+     * Get the application configuration.
+     *
+     * @static
+     * @param  $path The path to 'config.inc.php in the application directory
+     * @return array
+     */
+    static public function getApplicationConfig($path)
+    {
+      require_once $path .'config.inc.php';
+      return get_defined_vars();
     }
     
     /**
@@ -59,7 +99,7 @@
     public static function getGlobal($name, $default=null)
     {
       $fullName = 'config_'.$name;
-      if (function_exists($fullName)) 
+      if (function_exists($fullName))
       {
         return $fullName();
       }
