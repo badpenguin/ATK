@@ -22,3 +22,4 @@
    */
   $atk_version = "7.0";
   $atk_state   = "development";
+?>
