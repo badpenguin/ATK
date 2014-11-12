@@ -1125,7 +1125,7 @@
     else
     {
 		/* AGX: manage non object situations */
-		if (is_object($attribName)) {
+		if (is_object($attrib)) {
 			$attribName = $attrib->fieldName();
 			$label = $attrib->label($record);
 			$tab = $attrib->m_tabs[0];
