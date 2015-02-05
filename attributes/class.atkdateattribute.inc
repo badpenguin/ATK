@@ -345,7 +345,7 @@
       {
         $this->registerKeyListener($fieldname.'[year]', KB_CTRLCURSOR|KB_LEFTRIGHT);
 		// AGX: autocomplete
-        $result .= '<select autocomplete=off id="'.$fieldname.'[year]" name="'.$fieldname.'[year]" class="atkdateattribute" onChange="'.$str_script.'">';
+        $result .= '<select autocomplete="off" id="'.$fieldname.'[year]" name="'.$fieldname.'[year]" class="atkdateattribute" onChange="'.$str_script.'">';
         if (!$obligatory || $this->hasflag(AF_DATE_EMPTYFIELD))
           $result .= '<option value="0"'.($current === NULL ? ' selected' : '').'></option>';
 
@@ -399,8 +399,8 @@
     protected function renderMonth($fieldname, $str_script, $current, $format, $obligatory)
     {
       $this->registerKeyListener($fieldname.'[month]', KB_CTRLCURSOR|KB_LEFTRIGHT);
-	  // AGX
-      $result = '<select autocomplete=off id="'.$fieldname.'[month]" name="'.$fieldname.'[month]" class="atkdateattribute" onChange="'.$str_script.'">';
+	  // AGX: autocomplete
+      $result = '<select autocomplete="off" id="'.$fieldname.'[month]" name="'.$fieldname.'[month]" class="atkdateattribute" onChange="'.$str_script.'">';
       if (!$obligatory || $this->hasflag(AF_DATE_EMPTYFIELD))
         $result .= '<option value=""'.($current === NULL ? ' selected' : '').'></option>';
       if (!$this->m_simplemode)
@@ -436,8 +436,8 @@
     protected function renderDay($fieldname, $str_script, $current, $format, $obligatory, $weekdayFormat)
     {
       $this->registerKeyListener($fieldname.'[day]', KB_CTRLCURSOR|KB_LEFTRIGHT);
-	  // AGX
-      $result = '<select autocomplete=off id="'.$fieldname.'[day]" name="'.$fieldname.'[day]" class="atkdateattribute" onChange="'.$str_script.'">';
+	  // AGX: autocomplete
+      $result = '<select autocomplete="off" id="'.$fieldname.'[day]" name="'.$fieldname.'[day]" class="atkdateattribute" onChange="'.$str_script.'">';
       if (!$obligatory || $this->hasflag(AF_DATE_EMPTYFIELD))
         $result .= '<option value=""'.($current === NULL ? ' selected' : '').'></option>';
       if (!$this->m_simplemode)
@@ -583,8 +583,8 @@
       if (!empty($maximum) && !empty($minimum) && $str_max - $str_min < 25)
       {
         $this->registerKeyListener($fieldname, KB_CTRLCURSOR|KB_LEFTRIGHT);
-		// AGX
-        $result = '<select autocomplete=off id="'.$fieldname.'" name="'.$fieldname.'">';
+	    // AGX: autocomplete
+        $result = '<select autocomplete="off" id="'.$fieldname.'" name="'.$fieldname.'">';
         for ($i = $str_min; $i <= $str_max; $i++)
         {
           $tmp_date = adodb_getdate(adodb_mktime(0, 0, 0, substr($i, 4, 2), substr($i, 6, 2), substr($i, 0, 4)));

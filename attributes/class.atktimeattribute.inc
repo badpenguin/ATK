@@ -181,7 +181,7 @@
       $this->registerKeyListener($id.'[hours]', KB_CTRLCURSOR|KB_LEFTRIGHT);
       $this->registerKeyListener($id.'[minutes]', KB_CTRLCURSOR|KB_LEFTRIGHT);
       $this->registerKeyListener($id.'[seconds]', KB_CTRLCURSOR|KB_LEFTRIGHT);
-	  // AGX
+	  // AGX: autocomplete
       $m_hourBox = '<select autocomplete="off" id="'.$id.'[hours]" name="'.$id."[hours]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
       $m_minBox  = '<select id="'.$id.'[minutes]" name="'.$id."[minutes]\" class=\"atktimeattribute\"{$onChangeCode}>\n";
       $m_secBox  = '<select id="'.$id.'[seconds]" name="'.$id."[seconds]\" class=\"atktimeattribute\"{$onChangeCode}>\n";

@@ -283,7 +283,7 @@
         $this->_renderChangeHandler($fieldprefix);
       }
 
-	  // AGX
+	  // AGX: autocomplete
       $result = '<select autocomplete="off" id="'.$id.'" name="'.$id.'"  class="atklistattribute" '.$onchange.($this->m_width?" style='width: {$this->m_width}px'":"").'>';
 
       $result.=$this->_addEmptyListOption();
@@ -361,7 +361,7 @@
     function search($record="", $extended=false, $fieldprefix="", $grid=null)
     {
       $values = $this->getValues($record);
-	  // AGX
+	  // AGX: autocomplete
       $result = '<select autocomplete="off" ';
       if ($extended)
       {

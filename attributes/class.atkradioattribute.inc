@@ -179,7 +179,7 @@
         
         $commenthtml = '<br/><div class="atkradio_comment">'.$this->m_comments[$i].'</div>';
 
-		// AGX
+		// AGX: autocomplete
         $result .= '<td><input autocomplete="off" id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$i].'" '.$onchange.$sel.'>
         '.$this->renderValue($labelID,$this->_translateValue($values[$i],$record)).($this->hasFlag(AF_DISPLAY_VERT) && $this->m_comments[$i] != '' ? $commenthtml : '').'</td>';
         
@@ -207,7 +207,7 @@
             }
             if($values[$j]!="")
             {
-			  // AGX
+			  // AGX: autocomplete
               $result .= '<td><input autocomplete="off" id="'.$labelID.'" type="radio" name="'.$fieldprefix.$this->formName().'" '.$this->getCSSClassAttribute("atkradio").' value="'.$values[$j].'" '.$onchange.$sel.'>
               '.$this->renderValue($labelID,$this->_translateValue($values[$j],$record)).($this->m_comments[$i] != '' ? $commenthtml : '').'</td>';
             }
