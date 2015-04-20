@@ -1532,7 +1532,6 @@ class atkDataGrid
     {
       $selector->where($filter['filter'], $filter['params']);
     }
-
     return $selector->getAllRows();
   }
 

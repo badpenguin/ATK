@@ -235,7 +235,6 @@
       $session = &atkSessionManager::getSession();
 
       $response=AUTH_UNVERIFIED;
-
       if (atkconfig("auth_loginform")==true) // form login
       {
         $auth_user = isset($ATK_VARS["auth_user"]) ? $ATK_VARS["auth_user"] : null;
@@ -350,10 +349,6 @@
             else
             {
               $response = AUTH_MISMATCH;
-			  /* AGX */
-			  $this->log(1,"failed Login $auth_user from ". $_SERVER['REMOTE_ADDR']);
-			  $this->notifyListeners("failedLogin", $auth_user);
-			  /* END */
             }
           }
 
@@ -462,6 +457,19 @@
           $authenticated = false;
         }
       }
+
+		// NOTIFY
+		$ip = filter_input( INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP );
+		$user = filter_var( $auth_user, FILTER_SANITIZE_STRING );
+		$web = filter_input( INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_STRING );
+		$ua = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT');
+      if($response==AUTH_SUCCESS) {
+			  $this->log(1,'successfull Login "'.$user.'" from "'.$ip.'" for "'.$web.'"');
+			  $this->notifyListeners("successfullLogin", $auth_user);
+	  } else {
+			  $this->log(1,'failed Login "'. $user.'" from "'.$ip.'" for "'.$web.'" with "'. $ua.'"');
+			  $this->notifyListeners("failedLogin", $auth_user);
+	  }
 
       // if there was an error, drop out.
       if ($this->m_fatalError!="")
