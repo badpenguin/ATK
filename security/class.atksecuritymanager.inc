@@ -467,8 +467,11 @@
 			  $this->log(1,'successfull Login "'.$user.'" from "'.$ip.'" for "'.$web.'"');
 			  $this->notifyListeners("successfullLogin", $auth_user);
 	  } else {
+		 // Skip Empty Username when reloading the form 
+		 if ($user!='') {
 			  $this->log(1,'failed Login "'. $user.'" from "'.$ip.'" for "'.$web.'" with "'. $ua.'"');
 			  $this->notifyListeners("failedLogin", $auth_user);
+		}
 	  }
 
       // if there was an error, drop out.
