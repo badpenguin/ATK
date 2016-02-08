@@ -76,10 +76,10 @@
      * @param string $event name
      * @param string $username (might be null)
      */
-    function notifyListeners($event, $username)
+	function notifyListeners($event, $username, $message = "")
     {
       for ($i = 0, $_i = count($this->m_listeners); $i < $_i; $i++)
-        $this->m_listeners[$i]->handleEvent($event, $username);
+			$this->m_listeners[$i]->handleEvent($event, $username, $message);
     }
 
     /**
@@ -140,6 +140,16 @@
 
       // required interface;
       atkimport("atk.security.auth_interface");
+
+		$tmp_listeners = atkconfig("security_listeners", "atk.security.atksecuritylistener");
+		if (is_array($tmp_listeners) && (count($tmp_listeners) > 0)) {
+			foreach ($tmp_listeners as $listener_name) {
+				$this->addListener(atknew($listener_name));
+			}
+		}
+		else {
+			$this->addListener(atknew($tmp_listeners));
+		}
 
       $authentication = $this->_getAuthTypes($authentication_type);
       foreach($authentication as $class)
@@ -253,8 +263,8 @@
       // first check if we want to logout
       if (isset($ATK_VARS["atklogout"]) && (!isset($session["relogin"])||$session["relogin"]!=1))
       {
-        $this->notifyListeners("preLogout", $auth_user);
         $currentUser = &atkGetUser();
+		$this->notifyListeners("preLogout", $currentUser['name']);
 
         // Let the authentication plugin know about logout too.
         foreach ($this->m_authentication as $auth) {
@@ -270,7 +280,7 @@
           if (!empty($_COOKIE[$cookiename])) setcookie($cookiename, "", 0);
         }
 
-        $this->notifyListeners("postLogout", $auth_user);
+			$this->notifyListeners("postLogout", $currentUser['name']);
 
         if($ATK_VARS["atklogout"]>1)
         {
@@ -458,18 +468,18 @@
         }
       }
 
-		// NOTIFY
-		$ip = filter_input( INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP );
-		$user = filter_var( $auth_user, FILTER_SANITIZE_STRING );
-		$web = filter_input( INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_STRING );
-		$ua = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT');
-      if($response==AUTH_SUCCESS) {
-			  $this->log(1,'successfull Login "'.$user.'" from "'.$ip.'" for "'.$web.'"');
+		// Output user agent data so we can use Fail2Ban to block brute force attack
+		$ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
+		$user = filter_var($auth_user, FILTER_SANITIZE_STRING);
+		$web = filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_STRING);
+		$ua = filter_input(INPUT_SERVER, 'HTTP_USER_AGENT');
+		if ($response == AUTH_SUCCESS) {
+			$this->log(1, 'successfull Login "' . $user . '" from "' . $ip . '" for "' . $web . '"');
 			  $this->notifyListeners("successfullLogin", $auth_user);
 	  } else {
-		 // Skip Empty Username when reloading the form 
-		 if ($user!='') {
-			  $this->log(1,'failed Login "'. $user.'" from "'.$ip.'" for "'.$web.'" with "'. $ua.'"');
+			// Skip if Username is empty (when user press CTRL+R or reload in the browser)
+			if ($user != '') {
+				$this->log(1, 'failed Login "' . $user . '" from "' . $ip . '" for "' . $web . '" with "' . $ua . '"');
 			  $this->notifyListeners("failedLogin", $auth_user);
 		}
 	  }
@@ -795,7 +805,8 @@
      */
     function logAction($node, $action)
     {
-      $this->log(2,"Performing $node.$action");
+		$currentUser = &atkGetUser();
+		$this->notifyListeners("performed", $currentUser['name'], $node . "." . $action);
     }
 
     /**
