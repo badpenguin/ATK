@@ -1171,7 +1171,7 @@ class PHPMailer
       $maxlen = 75 - 7 - strlen($this->CharSet);
       // Try to select the encoding which should produce the shortest output
 	  /* AGX */
-	  /* NOTE: Q is Broken, Force B
+	  /* NOTE: Q is Broken, Force B for utf-8
       if (strlen($str)/3 < $x) {
 	  */
         $encoding = 'B';
