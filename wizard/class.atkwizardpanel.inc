@@ -157,7 +157,7 @@
           $handlerName = $this->m_actionHandlers[$i]['name'];
           $handlerAction = $this->m_actionHandlers[$i]['action'];
 
-          $handler = &new $handlerName();
+          $handler = new $handlerName();
           atkRegisterNodeHandler($this->m_node->m_type, $handlerAction, $handler);
         }
 
