@@ -612,7 +612,8 @@
     {
       if ($title == null)
       {
-        $title = $this->m_title;
+		// AGX: fix empty title for homepage/dashboard
+        $title = $this->m_title != "" ? $this->m_title : atkText('app_title');
       }
       
       $ui = &atkinstance('atk.ui.atkui');
