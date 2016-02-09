@@ -292,7 +292,7 @@
      */
     function fetchValue($rec)
     {
-      if ($this->hasFlag(AF_DURATION_STRING))
+      if ($this->hasFlag(AF_DURATION_STRING) || !is_array($rec[$this->fieldName()]))
       {
         return $this->_string2minutes($rec[$this->fieldName()]);
       }
