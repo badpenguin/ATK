@@ -1316,14 +1316,11 @@
       $table = $this->fieldName();
     }
 
-	/* AGX: ADV Commented out this, why?
+	/* AGX: ADV Commented out this, why? */
     if (!empty($extra) && in_array($extra, $this->m_listColumns))
     {
-	*/
       return $this->getDestination()->getAttribute($extra)->getOrderByStatement('', $table, $direction);
-	/*
     }
-	*/
 	/* END */
 
     $order = $this->m_destInstance->getOrder();
