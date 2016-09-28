@@ -46,6 +46,13 @@
       }
 
       $record = $this->getRecord();
+	  // IMPORTANT: try to get access to unknown records - AGX
+      if (!is_array($record))
+      {
+		  atkdebug('record non è array!');
+        $this->renderAccessDeniedPage();
+        return;
+      }
 
       // allowed to view record?
       if (!$this->allowed($record))

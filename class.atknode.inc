@@ -2171,7 +2171,9 @@
                 // relationship with.if(is_object($this->m_attribList[$table]))
                 if(is_object($this->m_attribList[$firstpart]))
                 {
+					if (isset($defaults[$firstpart][$field])) {
                   $defaults[$firstpart][$field] = $forcedvalue;
+					}
                   $attribname = $firstpart;
                 }
                 else
