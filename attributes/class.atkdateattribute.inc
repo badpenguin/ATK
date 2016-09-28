@@ -620,7 +620,7 @@
         if (count($this->m_onchangecode))
         {
           $this->renderChangeHandler($fieldprefix);
-          $str_script .= $this->getHtmlId($fieldprefix).'_onChange(this);"';
+          $str_script .= $this->getHtmlId($fieldprefix).'_onChange(this);';
         }
 
         /* year input box */

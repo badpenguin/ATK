@@ -1,5 +1,4 @@
 <?php
-
   /**
    * This file is part of the Achievo ATK distribution.
    * Detailed copyright and licensing information can be found
@@ -58,11 +57,16 @@
       $mime_type='application/x-gzip';
       $ext = "gz";
     }
-    elseif($type=="csv"||$type=="excel")
-    {
-      $mime_type='text/x-csv';
+    elseif ($type == "csv")
+	{
+      $mime_type = 'text/x-csv';
       $ext = "csv";
     }
+	elseif ($type == "excel")
+	{
+      $mime_type = 'application/octet-stream';
+      $ext = "xls";
+	}
     elseif($type=="xml")
     {
       $mime_type='text/xml';
@@ -70,7 +74,7 @@
     }
     else
     {
-      $mime_type='application/octetstream';
+      $mime_type='application/octet-stream';
     }
 
     header('Content-Type: '. $mime_type);
@@ -109,7 +113,12 @@
     // 3. on screen
     else
     {
-      echo $data;
+      if ($type == "csv" || $type == "excel") {
+        // in order to output UTF-8 content that Excel both on Windows and OS X will be able to successfully read
+        echo mb_convert_encoding($data, 'Windows-1252', 'UTF-8');
+      } else {
+        echo $data;
+      }
     }
     
     flush();
