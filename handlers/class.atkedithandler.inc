@@ -620,6 +620,8 @@
         }
         if (count($pk_err_attrib)>0) // Make primary key error message
         {
+			// https://github.com/badpenguin/atk-8/commit/8dc04a38d2c8edb00b62f9ea659baa7ef86f9963
+			$pk_err_msg = '';
           for($i=0;$i<count($pk_err_attrib); $i++)
           {
             $pk_err_msg .= atktext($pk_err_attrib[$i], $node->m_module);
