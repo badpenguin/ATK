@@ -1296,7 +1296,8 @@
         foreach($valueSeparators as $valueSeparator)
         {
           $expr = str_replace(" ",$valueSeparator,$regexpr);
-          if(ereg($expr,$stringvalue))
+          //TODO if(ereg($expr,$stringvalue))
+		  if (preg_match('/'.addcslashes($expr, '/').'/', $stringvalue))
           {
             $day    = substr($stringvalue,$dayBegin,$dayLength);
             $month  = substr($stringvalue,$monthBegin,$monthLength);

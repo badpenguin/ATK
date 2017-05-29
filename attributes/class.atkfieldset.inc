@@ -217,4 +217,18 @@ class atkFieldSet extends atkAttribute
   {
     return $this->renderFieldSet('display', $record, $mode);
   }  
+
+
+// https://github.com/badpenguin/atk-8/commit/7de34aaba3b2c2f2ae9ff5e91b3f751521ee98e9
+  public function hide($record = "", $fieldprefix = "")
+  {
+	  $fields = array_unique($this->getParser()->getFields());
+	  $result = '';
+	  foreach ($fields as $attrName) {
+		  $attr = $this->getOwnerInstance()->getAttribute($attrName);
+		  $result .= $attr->hide($record, $fieldprefix);
+	  }
+	  return $result;
+  }
+
 }

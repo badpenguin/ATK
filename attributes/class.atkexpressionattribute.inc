@@ -177,8 +177,11 @@
      */
     function search($record="", $extended=false, $fieldprefix="")
     {
-      if ($this->getSearchType() == "number")
-        return atkNumberAttribute::search($record, $extended, $fieldprefix);
+      if ($this->getSearchType() == "number") {
+        //return atkNumberAttribute::search($record, $extended, $fieldprefix);
+		$attr = new atkNumberAttribute($this->fieldName());
+		return $attr->search($record, $extended, $fieldprefix);
+	  }
       else return parent::search($record, $extended, $fieldprefix);
     }
     
@@ -228,5 +231,21 @@
         return atkNumberAttribute::getBetweenCondition($query, $expression, $value);
       }
     }    
+
+	// https://github.com/badpenguin/atk-8/commit/7de34aaba3b2c2f2ae9ff5e91b3f751521ee98e9
+	function display($record = "", $mode = '')
+	{
+		if ($this->getSearchType() == "number") {
+			$attr = new atkNumberAttribute($this->fieldName());
+			return $attr->display($record, $mode);
+		} else if ($this->getSearchType() == "date") {
+			$attr = new atkDateAttribute($this->fieldName());
+			$record[$this->fieldName()] = $attr->db2value($record);
+			return $attr->display($record, $mode);
+		}
+		return parent::display($record, $mode);
+	}
+
+//EOC
   }
 ?>

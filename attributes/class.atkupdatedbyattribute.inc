@@ -57,6 +57,7 @@
       if ($mode == 'add' || $mode == 'update')
       {
         atkAttribute::addToQuery($query, $tablename, $fieldaliasprefix, $rec, $level, $mode);
+		//TODO:TEST:$query->addField($this->fieldName(), $this->value2db($rec), '', '', !$this->hasFlag(AF_NO_QUOTES), true);
       }
       else
       {

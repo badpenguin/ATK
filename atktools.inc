@@ -124,11 +124,13 @@
     {
       atkerror("[$errortypestring] $errstr in $errfile (line $errline)");
 
-      // we must die. we can't even output anything anymore..
-      // we can do something with the info though.
-      handleError();
+		// https://github.com/badpenguin/atk-8/commit/7de34aaba3b2c2f2ae9ff5e91b3f751521ee98e9
+		// TODO: TEST
+	atkhalt($errstr, 'critical');
+	exit;
+/*OLD:      handleError();
       atkOutput::getInstance()->outputFlush();
-      die;
+      die;*/
     }
   }
 
@@ -139,9 +141,10 @@
    */
   function atkExceptionHandler(Exception $exception)
   {
-    atkdebug($exception->getMessage(), DEBUG_ERROR);
+    /*atkdebug($exception->getMessage(), DEBUG_ERROR);
     atkdebug("Trace:<br/>".nl2br($exception->getTraceAsString()), DEBUG_ERROR);
-    atkhalt("Uncaught exception: " . $exception->getMessage(), 'critical');
+    atkhalt("Uncaught exception: " . $exception->getMessage(), 'critical');*/
+	atkErrorHandler('EXCEPTION', $exception->getMessage(), $exception->getFile(), $exception->getLine());
   }
 
   /**
