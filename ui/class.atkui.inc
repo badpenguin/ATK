@@ -109,19 +109,21 @@
       return $this->renderBox($vars, "top", $module);
     }
 
-    /**
-     * Renders a box with Smarty template.
-     * Call with a $name variable to provide a
-     * better default than "box.tpl".
-     *
-     * For instance, calling renderBox($smartyvars, "menu")
-     * will make it search for a menu.tpl first and use that
-     * if it's available, otherwise it will just use box.tpl
-     * 
-     * @param array $vars the variables for the template
-     * @param string $name The name of the template
-     * @param string $module the name of the module requesting to render a template
-     */
+	  /**
+	   * Renders a box with Smarty template.
+	   * Call with a $name variable to provide a
+	   * better default than "box.tpl".
+	   *
+	   * For instance, calling renderBox($smartyvars, "menu")
+	   * will make it search for a menu.tpl first and use that
+	   * if it's available, otherwise it will just use box.tpl
+	   *
+	   * @param array $vars the variables for the template
+	   * @param string $name The name of the template
+	   * @param string $module the name of the module requesting to render a template
+	   *
+	   * @return String
+	   */
     function renderBox($vars, $name="", $module="")
     {
       if ($name && file_exists($this->m_theme->tplPath($name.".tpl")))
@@ -375,6 +377,7 @@
      */
     function getWizardTitle($wizard, $panel, $action=NULL)
     {
+      $label = '';
       if ($wizard == NULL) return "";
                             
       $module = $wizard->getModuleName();
