@@ -1,4 +1,4 @@
-w<?php
+<?php
 
   /**
    * Handles errors by sending them to Zend Platform

@@ -168,39 +168,44 @@
 
   }
 
-  if (!function_exists("checkdnsrr"))
-  {
-    /**
-     * Check an e-mail domain in DNS using nslookup.
-     *
-     * This is only used on Windows as on Linux environments this function
-     * is native in PHP.
-     * @access private
-     */
-    function checkdnsrr($hostName, $recType = 'MX')
-    {
-      if(!empty($hostName))
-      {
-        $recType = escapeshellarg($recType);
-        $hostNameArg = escapeshellarg($hostName);
-        exec("nslookup -type=$recType $hostNameArg", $result);
-        // check each line to find the one that starts with the host
-        // name. If it exists then the function succeeded.
-        foreach ($result as $line)
-        {
-          //if(eregi("^$hostName",$line))
-		  if (preg_match("/^$hostName/i", $line)) {
-          {
-            return true;
-          }
-        }
-        // otherwise there was no mail handler for the domain
-        return false;
-      }
-      return false;
-    }
-    // AGX missing return statement
-    return true;
+  if (!function_exists("checkdnsrr")) {
+	  /**
+	   * Check an e-mail domain in DNS using nslookup.
+	   *
+	   * This is only used on Windows as on Linux environments this function
+	   * is native in PHP.
+	   * @access private
+	   *
+	   * @param $hostName
+	   * @param string $recType
+	   *
+	   * @return bool
+	   */
+	  function checkdnsrr( $hostName, $recType = 'MX' ) {
+		  if ( ! empty( $hostName ) ) {
+			  $recType     = escapeshellarg( $recType );
+			  $hostNameArg = escapeshellarg( $hostName );
+			  exec( "nslookup -type=$recType $hostNameArg", $result );
+			  // check each line to find the one that starts with the host
+			  // name. If it exists then the function succeeded.
+			  foreach ( $result as $line ) {
+				  //if(eregi("^$hostName",$line))
+				  if ( preg_match( "/^$hostName/i", $line ) ) {
+					  {
+						  return true;
+					  }
+				  }
+
+				  // otherwise there was no mail handler for the domain
+				  return false;
+			  }
+
+			  return false;
+		  }
+
+		  // AGX missing return statement
+		  return true;
+	  }
   }
 
 ?>
