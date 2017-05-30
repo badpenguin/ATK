@@ -40,7 +40,7 @@
     /**
      * Constructor
      */
-    function atkDirectoryTraverser()
+    function __construct()
     {
     }
 
