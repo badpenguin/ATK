@@ -47,7 +47,7 @@
      *                   behavior.
      */
 
-    function atkPolymorphicOneToOneRelation($name,$typefk,$discriminatorfield,
+    function __construct($name,$typefk,$discriminatorfield,
                                             $defaultdest,$modulename,$refKey, $flags=0)
     {
       $this->atkOneToOneRelation($name,"",$refKey, $flags|AF_HIDE_LIST);

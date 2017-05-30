@@ -60,13 +60,14 @@
      * @param int $size
      * @return atkTagAttribute
      */
-    function atkTagAttribute($name, $destination, $destinationfield ,$link, $mode=TA_ADD, $flags=0, $size=0)
+    function __construct($name, $destination, $destinationfield ,$link, $mode=TA_ADD, $flags=0, $size=0)
     {
       if ($size==0)
       {
         $size = $this->maxInputSize();
       }
 
+      // AGX: uh? attribute or fuzzy?
       $this->atkAttribute($name, $flags|AF_NO_SORT, $size);
       $this->m_destination = $destination;
       $this->m_destinationfield = $destinationfield;

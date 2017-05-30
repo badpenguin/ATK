@@ -59,7 +59,7 @@
      * @param String $destination The destination node (in module.name notation)
      * @param int $flags Flags for the relation
      */
-    function atkRelation($name, $destination, $flags=0)
+    function __construct($name, $destination, $flags=0)
     {
       $this->atkAttribute($name, $flags);
       $this->m_destination = $destination;

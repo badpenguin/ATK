@@ -38,9 +38,9 @@
      * @param int $flags Flags for this attribute
      * @param int $size  Size of the attribute.
      */
-    function atkFlagAttribute($name, $optionArray, $valueArray="", $cols="", $flags=0, $size="")
+    function __construct($name, $optionArray, $valueArray="", $cols="", $flags=0, $size="")
     {
-      $this->atkMultiSelectAttribute($name, $optionArray, $valueArray, $cols, $flags, $size);
+	    parent::__construct($name, $optionArray, $valueArray, $cols, $flags, $size);
       $this->m_dbfieldtype = "number";
     }
 

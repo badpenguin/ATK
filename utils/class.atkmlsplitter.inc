@@ -34,7 +34,7 @@
      * Constructor
      *
      */
-    function atkMlSplitter()
+    function __construct()
     {
       // constructor
     }

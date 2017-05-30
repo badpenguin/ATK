@@ -79,7 +79,7 @@
      *                     parameter.
      * @param array $restrictions  
      */
-    function atkPasswordAttribute($name, $generate, $flags=0, $size=0, $restrictions="")
+    function __construct($name, $generate, $flags=0, $size=0, $restrictions="")
     {
       // compatiblity with old versions
       if (func_num_args() >= 3)
@@ -93,7 +93,7 @@
       }
 
       // Call the parent constructor
-      $this->atkAttribute($name, $flags|AF_HIDE_SEARCH, $size); // you can't search by password.
+	    parent::__construct($name, $flags|AF_HIDE_SEARCH, $size); // you can't search by password.
 
       // Set the restrictions
       $this->setRestrictions($restrictions);

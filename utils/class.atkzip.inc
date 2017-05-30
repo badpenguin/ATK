@@ -44,7 +44,7 @@
      *
      * @return atkZip
      */
-    function atkZip()
+    function __construct()
     {
     	$this->m_zipmode = atkconfig("zipmode", "auto");
     	$this->m_zip_bin = atkconfig("ziplocation", "zip");

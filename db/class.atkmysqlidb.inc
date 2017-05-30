@@ -39,7 +39,7 @@
     /**
      * Base constructor
      */
-    function atkmysqlidb()
+    function __construct()
     {
       if (!function_exists('mysqli_connect'))
       {

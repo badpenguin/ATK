@@ -206,7 +206,7 @@
      *
      * @see atkAttribute
      */
-    function atkDateAttribute($name, $format_edit="", $format_view="", $min=0, $max=0, $flags=0)
+    function __construct($name, $format_edit="", $format_view="", $min=0, $max=0, $flags=0)
     {
       /* *** API SUPPORT HACK ***
        * Because of backwards compatability and because of the number
@@ -230,7 +230,7 @@
       $this->setDateMax($max);
 
       /* base class constructor */
-      $this->atkAttribute($name, $flags);
+	  parent::__construct($name, $flags);
     }
 
     /**

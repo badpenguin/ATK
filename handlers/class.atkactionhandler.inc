@@ -79,7 +79,7 @@
     /**
      * Default constructor.
      */
-    function atkActionHandler()
+    function __construct()
     {
     }
 

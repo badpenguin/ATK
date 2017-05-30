@@ -72,7 +72,7 @@
      * @param string $filename
      * @return atkTmpFile
      */
-    public function atkTmpFile($filename)
+    public function __construct($filename)
     {
       $this->m_filename = $filename;
     }

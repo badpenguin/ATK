@@ -43,9 +43,9 @@
      * @param string $destination Destination node for this relation
      * @param int $flags Flags for the relation
      */
-    function atkManyToOneTreeRelation($name, $destination, $flags=0)
+    function __construct($name, $destination, $flags=0)
     {
-      $this->atkManyToOneRelation($name, $destination, $flags);
+      parent::__construct($name, $destination, $flags);
     }
 
     /**

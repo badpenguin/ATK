@@ -49,9 +49,9 @@
      *                   Use AF_LIVETEXT_NL2BR if the data should be nl2br'd before 
      *                   display.
      */
-    function atkLiveTextPreview($name, $masterattribute, $flags=0)
+    function __construct($name, $masterattribute, $flags=0)
     {
-      $this->atkDummyAttribute($name, '', $flags);      
+      parent::__construct($name, '', $flags);
       $this->m_masterattribute = $masterattribute;
     }
     

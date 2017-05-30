@@ -66,7 +66,7 @@
      * @param int $flags          Attribute flags that influence this 
      *                            attributes' behavior.     
      */
-    function atkSecureRelation($name, $destination, $linktable, $linkfield, $linkbackfield, $keylength, $refKey="", $encryption, $flags=0)
+    function __construct($name, $destination, $linktable, $linkfield, $linkbackfield, $keylength, $refKey="", $encryption, $flags=0)
     {
       $this->atkOneToOneRelation($name, $destination, $refKey, $flags|AF_ONETOONE_ERROR);
       $this->createDestination();

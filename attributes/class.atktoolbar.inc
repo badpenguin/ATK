@@ -42,9 +42,10 @@
      * @param String $name Name of the attribute (unique within a node)
      * @param int $flags Flags for the attribute.
      */
-    function atkToolbar($name, $flags=0)  
-    {      
-      $this->atkAttribute($name,$flags|AF_HIDE_LIST|AF_BLANKLABEL);      
+    function __construct($name, $flags=0)
+    {
+    	// AGX: uh? Dummy or attribute?
+      $this->atkAttribute($name,$flags|AF_HIDE_LIST|AF_BLANKLABEL);
     }
     
     /**

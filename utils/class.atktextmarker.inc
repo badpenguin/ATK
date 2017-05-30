@@ -35,7 +35,7 @@
      * @param string $text
      * @return atkTextMarker
      */
-    function atkTextMarker($text="")
+    function __construct($text="")
     {
       $this->setText($text);
     }

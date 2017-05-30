@@ -46,9 +46,9 @@
      * @param int $flags Flags of the attribute
      * @param bool $nl2br nl2br boolean
      */
-    function atkHtmlAttribute($name, $flags=0, $nl2br = false)
+    function __construct($name, $flags=0, $nl2br = false)
     {
-      $this->atkAttribute($name,$flags); // base class constructor
+	    parent::__construct($name,$flags); // base class constructor
       $this->nl2br = $nl2br;
     }
 

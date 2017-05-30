@@ -50,10 +50,10 @@
      * @param int $flags Flags for the attribute
      * @param int $size The size of the field in characters
      */
-    function atkEmailAttribute($name, $search = false, $flags = 0, $size=0)
+    function __construct($name, $search = false, $flags = 0, $size=0)
     {
       $this->m_dnsSearch = $search;
-      $this->atkAttribute($name, $flags, $size);
+	  parent::__construct($name, $flags, $size);
     }
 
     /**
@@ -171,7 +171,7 @@
   if (!function_exists("checkdnsrr"))
   {
     /**
-     * Check an e-mail do main in DNS using nslookup.
+     * Check an e-mail domain in DNS using nslookup.
      *
      * This is only used on Windows as on Linux environments this function
      * is native in PHP.
@@ -199,6 +199,8 @@
       }
       return false;
     }
+    // AGX missing return statement
+    return true;
   }
 
 ?>

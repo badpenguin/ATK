@@ -16,12 +16,12 @@
    */
 
   /**
-   * Wrapper for turning any attribute into a multilanguage enabled 
+   * Wrapper for turning any attribute into a multilanguage enabled
    * attribute.
    *
-   * This attribute implements the 'decorator' pattern. It takes an 
+   * This attribute implements the 'decorator' pattern. It takes an
    * attribute as constructor parameter, and turns that attribute into
-   * an internationalised attribute, compatible with the existing 
+   * an internationalised attribute, compatible with the existing
    * atkMl*Attributes.
    *
    * <i>Example usages</i>
@@ -36,7 +36,7 @@
   class atkMlWrapper extends atkAttribute
   {
     var $m_childList = array();
-    
+
     /**
      * Constructor
      *
@@ -44,16 +44,16 @@
      * @param integer $flags
      * @return atkMlWrapper
      */
-    function atkMlWrapper(&$attribute, $flags = 0)
+    function __construct(&$attribute, $flags = 0)
     {
       // first highjack the containing attribute
-      $this->atkAttribute($attribute->m_name, $flags|$attribute->m_flags);
-      
+	  parent::__construct($attribute->m_name, $flags|$attribute->m_flags);
+
       foreach($this->getLanguages() as $lng)
       {
         // Clone attrs with new name
         $attr = atkClone($attribute);
-        
+
         $attr->m_name = $this->m_name."_".$lng;
         $this->m_childList[$lng] = $attr;
       }
@@ -61,7 +61,7 @@
 
     /**
      * Return possible languages
-     * 
+     *
      * @return array with supported languages
      */
     function getLanguages()
@@ -145,9 +145,9 @@
 
     /**
      * Register a piece of script to execute upon language change
-     * 
+     *
      * @return string with script code
-     */ 
+     */
     function getMlSwitchCode()
     {
        return "hideAttrib('".$this->fieldName()."_'+oldlng); showAttrib('".$this->fieldName()."_'+newlng);";

@@ -41,7 +41,7 @@
     /**
      * Base constructor
      */
-    function atkmysqldb()
+    function __construct()
     {
       if (!function_exists('mysql_connect'))
       {

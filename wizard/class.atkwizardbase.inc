@@ -35,7 +35,7 @@ atkimport("atk.atkcontroller");
      *
      * @return atkController object
      */
-    function atkWizardBase()
+    function __construct()
     {       
        $this->atkController();
     }

@@ -76,7 +76,7 @@
      * @param string $postvars The postvars of the recordlist
      * @access private
      */
-    function atkRecordlistCache($node="",$postvars="")
+    function __construct($node="",$postvars="")
     {
       $this->m_node = $node;
       $this->m_postvars = $postvars;

@@ -49,11 +49,11 @@
      * @param int    $flags    Flags for this attribute
      * @param mixed  $size     Size of the attribute
      */
-    function atkFileWriterAttribute($name, $filename, $flags=0, $size=30)
+    function __construct($name, $filename, $flags=0, $size=30)
     {
       $this->m_filename = $filename;
 
-      $this->atkTextAttribute($name,$size,$flags); // base class constructor      
+	    parent::__construct($name,$size,$flags); // base class constructor
     }
 
     /**

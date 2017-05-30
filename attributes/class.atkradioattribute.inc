@@ -70,7 +70,7 @@
      * @param int $size database field size ($size[1] can be used for the amount of cols / rows to display, for example: 3c or 5r or just 4)
      *
      */
-    function atkRadioAttribute($name, $optionArray, $valueArray="", $flags=0, $size=0)
+    function __construct($name, $optionArray, $valueArray="", $flags=0, $size=0)
     {
       if (is_array($size) and count($size)>1)
       {
@@ -92,7 +92,7 @@
           $this->m_amount=$size[1];
         }
       }
-      $this->atkListAttribute($name, $optionArray, $valueArray, $flags,$size); // base class constructor
+	    parent::__construct($name, $optionArray, $valueArray, $flags,$size); // base class constructor
     }
     
     /**

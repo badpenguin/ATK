@@ -51,7 +51,7 @@
     * @param string $fk2             foreignkey in colum table
     * @param int    $flags           AF_MATRIX_ACYCLIC if input must be acyclic
     */
-    function atkMatrixRelation($name, $name1, $destination1, $fk1, $name2, $destination2, $fk2, $flags=0)
+    function __construct($name, $name1, $destination1, $fk1, $name2, $destination2, $fk2, $flags=0)
     {
       $this->atkRelation($name, $destination1, $flags);
 

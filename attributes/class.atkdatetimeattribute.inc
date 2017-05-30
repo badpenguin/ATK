@@ -83,7 +83,7 @@
      * @param string $default_time     start time
      * @param int $flags Flags for this attribute
      */
-    function atkDateTimeAttribute($name, $default_date="",$default_time="",$flags=0)
+    function __construct($name, $default_date="",$default_time="",$flags=0)
     {
       $default_steps = array();
       for($i=0;$i<60;$i++)

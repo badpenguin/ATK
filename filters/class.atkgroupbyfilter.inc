@@ -48,10 +48,10 @@
     * @param string $groupbystmt
     * @param int $flags
     */
-    function atkGroupByFilter($name, $groupbystmt, $flags=0)
+    function __construct($name, $groupbystmt, $flags=0)
     {	
       $this->m_groupbystmt = $groupbystmt;
-      $this->atkFilter($name, $flags);
+      parent::__construct($name, $flags);
     }
 
     /**

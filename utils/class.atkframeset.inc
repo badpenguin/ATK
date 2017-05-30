@@ -63,7 +63,7 @@
      *                         framesets.
      *                        
      */     
-    function atkFrameSet($dimension="*", $orientation=FRAMESET_VERTICAL, $border=0, $noframes='')
+    function __construct($dimension="*", $orientation=FRAMESET_VERTICAL, $border=0, $noframes='')
     {
       $this->atkAbstractFrame($dimension);
       

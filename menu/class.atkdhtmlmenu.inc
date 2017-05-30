@@ -33,7 +33,7 @@
      *
      * @return atkDhtmlMenu
      */
-    function atkDhtmlMenu()
+    function __construct()
     {
       $this->m_height = "50";
     }

@@ -39,9 +39,9 @@
      * @param int $flags Flags for this attribute.
      * @return atkCreatedByAttribute
      */
-    function atkCreatedByAttribute($name, $flags=0)
+    function __construct($name, $flags=0)
     {
-      $this->atkUpdatedByAttribute($name, $flags);
+	    parent::__construct($name, $flags);
     }
 
     /**

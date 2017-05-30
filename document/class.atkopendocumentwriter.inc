@@ -41,7 +41,7 @@
     /**
      * atkOpenDocumentWriter Constructor
      */
-    function atkOpenDocumentWriter()
+    function __construct()
     {
       $this->m_tbsooo = new clsTinyButStrongOOo;
       $this->m_tbsooo->VarPrefix = "documentvar_";

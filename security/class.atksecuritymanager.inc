@@ -134,7 +134,7 @@
      * @param string $authorization_type The type of authorization (mostly the same as the authentication_type)
      * @param string $securityscheme The security scheme that will be used to determine who is allowed to do what
      */
-    function atkSecurityManager($authentication_type="none", $authorization_type="none", $securityscheme="none")
+    function __construct($authentication_type="none", $authorization_type="none", $securityscheme="none")
     {
       atkdebug("creating securityManager (authenticationtype: $authentication_type, authorizationtype: $authorization_type, scheme: $securityscheme)");
 

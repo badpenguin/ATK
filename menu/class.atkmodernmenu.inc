@@ -34,7 +34,7 @@
      *
      * @return atkModernMenu
      */
-    function atkModernMenu()
+    function __construct()
     {
       $this->m_height = "130";
     }

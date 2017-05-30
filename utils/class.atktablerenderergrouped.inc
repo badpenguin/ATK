@@ -82,7 +82,7 @@
      * @return atkTableRendererGrouped
      * @access public
      */
-    function atkTableRendererGrouped($flags = 0, $style = '', $module = '')
+    function __construct($flags = 0, $style = '', $module = '')
     {
       $this->atkTableRenderer($flags, $style, $module);
       $this->setClass('groupheader', 0, 'firstcol');

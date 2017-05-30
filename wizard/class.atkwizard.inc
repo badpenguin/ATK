@@ -140,7 +140,7 @@ class atkWizard extends atkWizardBase
      *
      * @return atkWizard
      */    
-  function atkWizard()
+  function __construct()
   {
     atkdebug("atkWizard::constructor" . atkGetPostVar("atkcontroller"));
     

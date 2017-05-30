@@ -38,7 +38,7 @@
      * @param int $flags The flags of this attribute
      * @return atkProfileAttribute
      */
-    function atkProfileAttribute($name, $parentAttrName="", $flags=0)
+    function __construct($name, $parentAttrName="", $flags=0)
     {
       if (is_numeric($parentAttrName))
       {
@@ -46,7 +46,7 @@
         $parentAttrName = "";
       }
 
-      $this->atkAttribute($name, $flags|AF_HIDE_SEARCH|AF_HIDE_LIST);
+	    parent::__construct($name, $flags|AF_HIDE_SEARCH|AF_HIDE_LIST);
       $this->m_parentAttrName = $parentAttrName;
       
       $this->m_accessField = atkconfig('auth_accessfield');

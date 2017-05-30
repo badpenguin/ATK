@@ -73,7 +73,7 @@
     * @param bool $defaulttocurrent Set the default selected country to the 
     *                               current country based on the atk language
     */
-    function atkCountryAttribute($name,$switch="world",$optionArray="", $valueArray="", $flags = 0,$defaulttocurrent=true)
+    function __construct($name,$switch="world",$optionArray="", $valueArray="", $flags = 0,$defaulttocurrent=true)
     {
       if (is_numeric($switch))
       {
@@ -101,7 +101,7 @@
          $valueArray   = $this->getCountryValueArray($switch);
       }
       $this->m_defaulttocurrent = $defaulttocurrent;
-      $this->atkListAttribute($name,$optionsArray,$valueArray, $flags|AF_NO_TRANSLATION, 0);
+	  parent::__construct($name,$optionsArray,$valueArray, $flags|AF_NO_TRANSLATION, 0);
     }
 
     /**

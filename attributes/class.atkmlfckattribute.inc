@@ -40,7 +40,7 @@ class atkMlFckAttribute extends atkMlTextAttribute
         }
 
         $this->fck_opt["Language"] = atkconfig("language");
-        $this->atkMlTextAttribute($name, $flags, $size);
+	    parent::__construct($name, $flags, $size);
     }
 
     /**

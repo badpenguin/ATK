@@ -58,7 +58,7 @@
     /**
      * Constructor
      */
-    function atkMessageQueue()
+    function __construct()
     {
     }
 

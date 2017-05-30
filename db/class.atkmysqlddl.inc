@@ -35,7 +35,7 @@
      *
      * @return atkMysqlDDL
      */
-    function atkMysqlDDL()
+    function __construct()
     {
     }
 

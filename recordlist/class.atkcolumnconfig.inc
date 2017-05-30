@@ -45,7 +45,7 @@
      *
      * @return atkColumnConfig
      */
-    function atkColumnConfig()
+    function __construct()
     {
     }
 

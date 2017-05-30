@@ -45,7 +45,7 @@
      * @param String $text The text to display
      * @param int $flags The flags for this attribute
      */
-    function atkDummyAttribute($name, $text="", $flags=0)
+    function __construct($name, $text="", $flags=0)
     {
     	// A Dummy attrikbute should not be searchable and sortable
       $flags |= AF_HIDE_SEARCH | AF_NO_SORT;
@@ -54,7 +54,7 @@
       if (!hasFlag($flags, AF_DUMMY_SHOW_LABEL))
     	  $flags |= AF_BLANKLABEL;
 
-      $this->atkAttribute($name,$flags); // base class constructor
+	  parent::__construct($name,$flags); // base class constructor
       $this->m_text = $text;
     }
 

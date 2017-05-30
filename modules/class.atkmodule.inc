@@ -44,7 +44,7 @@
      * overhere, create its menuitems etc.
      * @param String $name The name of the module.
      */
-    function atkModule($name="")
+    function __construct($name="")
     {
       $this->m_name = $name;
     }

@@ -52,7 +52,7 @@
      *               $flags is mandatory).
      * @param int $flags Flags for this attribute
      */
-    function atkTextAttribute($name,$size=0,$flags=0)
+    function __construct($name,$size=0,$flags=0)
     {
       // compatiblity with old versions (old apps expect a 2 param call to be $name, $flags)
       if (func_num_args()==3 || is_array($size))
@@ -70,7 +70,7 @@
         $flags = $size;
       }
 
-      $this->atkAttribute($name,$flags); // base class constructor
+	    parent::__construct($name,$flags); // base class constructor
     }
     
     /**

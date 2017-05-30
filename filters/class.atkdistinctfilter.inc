@@ -35,7 +35,7 @@
     /**
     * constructor
     */
-    function atkDistinctFilter()
+    function __construct()
     {	
       $this->atkFilter("distinctfilter");
     }

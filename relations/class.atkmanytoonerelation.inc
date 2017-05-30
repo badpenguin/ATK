@@ -247,7 +247,7 @@ class atkManyToOneRelation extends atkRelation
    * @param String $destination The node we have a relationship with.
    * @param int $flags Flags for the relation
    */
-  function atkManyToOneRelation($name, $destination, $flags=0)
+  function __construct($name, $destination, $flags=0)
   {
     if (atkconfig("manytoone_autocomplete_default", false))
     $flags |= AF_RELATION_AUTOCOMPLETE;

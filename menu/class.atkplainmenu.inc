@@ -32,7 +32,7 @@
      *
      * @return atkPlainMenu
      */
-    function atkPlainMenu()
+    function __construct()
     {
       $this->m_height = "50";
     }
