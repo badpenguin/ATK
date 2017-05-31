@@ -37,7 +37,7 @@
      * @param bool $reset Always reset and return a new instance
      * @return atkTheme theme instance
      */
-    function &getInstance($reset=false)
+    static function &getInstance($reset=false)
     {
       static $s_instance = NULL;
       if ($s_instance == NULL || $reset)
@@ -78,7 +78,7 @@
      * @param String $location 
      * @return String The absolute path
      */
-    function absPath($relpath, $location='')
+    static function absPath($relpath, $location='')
     {
       if ($relpath=="") return "";
 

@@ -105,8 +105,9 @@
      * @param Array $err Error code.
      * @return int One of the generic DB_* constants
      */
-    function _translateError($err)
+    function _translateError($errno=0)
     {
+    	$err=$errno;
       $this->m_errno = $err['code'];
       $this->m_error = ($err['message']?$err['message']:$err['error']);
       atkdebug(get_class($this).'::_translateError() -> DB Error code: '.$err['code']);

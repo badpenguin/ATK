@@ -82,7 +82,7 @@
      * @param mixed $error
      * @return int The ATK error code
      */
-    function _translateError($error="")
+    function _translateError($error=0)
     {
       return DB_UNKNOWNERROR;
     }

@@ -35,16 +35,16 @@ class atkSmarty
    * @static
    * @return Smarty The one and only instance.
    */
-  function &getInstance()
+  static function &getInstance()
   {
     static $s_smarty = NULL;
     if ($s_smarty == NULL)
     {
       atkdebug("Creating Smarty instance");
-      if (!class_exists("Smarty"))
-      {
-        include_once(atkconfig("atkroot")."atk/ui/smarty/Smarty.class.php");
-      }
+	    if (!class_exists("Smarty", false))
+	    {
+		    include_once(atkconfig("atkroot")."atk/ui/smarty/Smarty.class.php");
+	    }
 
       // Warning: you'd think that the next line should read
       // $s_smarty = & new Smarty();
@@ -85,7 +85,7 @@ class atkSmarty
 
       $s_smarty->default_template_handler_func = 'missing_template_handler'; // function to handle missing templates
 
-      $s_smarty->php_handling    =  SMARTY_PHP_ALLOW;
+      $s_smarty->php_handling    =  SMARTY_PHP_ALLOW; // TODO: deprecated in v3?
                                         // how smarty handles php tags in the templates
                                         // possible values:
                                         // SMARTY_PHP_PASSTHRU -> echo tags as is
@@ -94,8 +94,10 @@ class atkSmarty
                                         // SMARTY_PHP_ALLOW    -> execute php tags
                                         // default: SMARTY_PHP_PASSTHRU
 
-      $s_smarty->default_handler = atkconfig("defaulthandler");
-      $s_smarty->default_modifier = atkconfig("defaultmodifier");
+//AGX TODO
+		$s_smarty->default_handler = atkconfig("defaulthandler");
+//AGX TODO
+		$s_smarty->default_modifier = atkconfig("defaultmodifier");
 
       // plugin dirs
       $s_smarty->plugins_dir = array(atkconfig("atkroot")."atk/ui/smarty/plugins",
@@ -134,7 +136,7 @@ class atkSmarty
    * @static
    * @private
    */
-  function getPathForPlugin($moduleOrPath, $name, $type)
+  static function getPathForPlugin($moduleOrPath, $name, $type)
   {
     if (moduleExists($moduleOrPath))
     {
@@ -161,7 +163,7 @@ class atkSmarty
    * @param bool $cacheable
    * @param string $cache_attrs
    */
-  function addFunction($moduleOrPath, $tag, $name="", $cacheable=true, $cache_attrs=null)
+  static function addFunction($moduleOrPath, $tag, $name="", $cacheable=true, $cache_attrs=null)
   {
     $smarty = &atkSmarty::getInstance();
 
@@ -188,7 +190,7 @@ class atkSmarty
    * @param string $tag
    * @param string $cache_attrs
    */
-  function addDynamicFunction($moduleOrPath, $tag, $cache_attrs=null)
+  static function addDynamicFunction($moduleOrPath, $tag, $cache_attrs=null)
   {
     atkSmarty::addFunction($moduleOrPath, $tag, $tag, false, $cache_attrs);
   }

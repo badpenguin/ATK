@@ -94,7 +94,7 @@
      * @param mixed $errno Vendor-dependent error code.
      * @return int ATK error code
      */
-   function _translateError($errno)
+   function _translateError($errno=0)
    {
      // The MSSQL interface can not return detailed error information
      $this->m_errno = 1;

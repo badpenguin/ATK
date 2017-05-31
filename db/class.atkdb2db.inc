@@ -90,7 +90,7 @@
      * @todo Make DB2
      * @return int Flag of the error
      */
-    function _translateError()
+    function _translateError($errno=0)
     {
       $this->_setErrorVariables();
       switch ($this->m_errno)

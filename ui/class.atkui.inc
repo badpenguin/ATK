@@ -43,8 +43,8 @@
      */
     function __construct()
     {
-      $this->m_theme = &atkinstance("atk.ui.atktheme");
-      $this->m_smarty = &atkinstance("atk.ui.atksmarty");
+      $this->m_theme = atkinstance("atk.ui.atktheme");
+      $this->m_smarty = atkinstance("atk.ui.atksmarty");
     }
 
     /**
@@ -85,12 +85,15 @@
       return $this->render($tpl, $vars, $module);
     }
 
-    /**
-     * Renders a list template
-     * @param String $action not used (deprecated?)
-     * @param array  $vars   the variables with which to parse the list template
-     * @param string $module the name of the module requesting to render a template 
-     */
+	  /**
+	   * Renders a list template
+	   *
+	   * @param String $action not used (deprecated?)
+	   * @param array $vars the variables with which to parse the list template
+	   * @param string $module the name of the module requesting to render a template
+	   *
+	   * @return String
+	   */
     function renderList($action, $vars, $module="")
     {
       return $this->render("list.tpl", $vars, $module);

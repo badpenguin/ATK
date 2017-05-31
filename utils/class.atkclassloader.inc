@@ -402,7 +402,7 @@
      * @return string|bool   The classpath (atkimport statement) of the class
      *                       if found, else false
      */
-    function findClass($class)
+    static function findClass($class)
     {
       $class = strtolower($class);
       $classloader = new atkClassLoader();

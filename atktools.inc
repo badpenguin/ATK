@@ -126,25 +126,25 @@
 
 		// https://github.com/badpenguin/atk-8/commit/7de34aaba3b2c2f2ae9ff5e91b3f751521ee98e9
 		// TODO: TEST
-	atkhalt($errstr, 'critical');
-	exit;
-/*OLD:      handleError();
+	  //atkhalt($errstr, 'critical');
+      handleError();
       atkOutput::getInstance()->outputFlush();
-      die;*/
+      die;
     }
   }
 
   /**
    * Default ATK exception handler, handles uncaught exceptions and calls atkHalt.
    *
-   * @param Exception $exception uncaught exception
+   * @param Throwable $exception uncaught exception
    */
-  function atkExceptionHandler(Exception $exception)
+  function atkExceptionHandler(Throwable $exception)
   {
-    /*atkdebug($exception->getMessage(), DEBUG_ERROR);
+	  // TODO TEST
+	//atkErrorHandler('EXCEPTION', $exception->getMessage(), $exception->getFile(), $exception->getLine());
+    atkdebug($exception->getMessage(), DEBUG_ERROR);
     atkdebug("Trace:<br/>".nl2br($exception->getTraceAsString()), DEBUG_ERROR);
-    atkhalt("Uncaught exception: " . $exception->getMessage(), 'critical');*/
-	atkErrorHandler('EXCEPTION', $exception->getMessage(), $exception->getFile(), $exception->getLine());
+    atkhalt("Uncaught exception: " . $exception->getMessage(), 'critical');
   }
 
   /**

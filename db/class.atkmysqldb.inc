@@ -116,7 +116,7 @@
      *
      * @return int Flag of the error
      */
-    function _translateError()
+    function _translateError($errno=0)
     {
       $this->_setErrorVariables();
       switch ($this->m_errno)
@@ -616,7 +616,7 @@
      * Return the available table names
      * @return array with table names etc.
      */
-    function table_names()
+    function table_names($includeViews=true)
     {
       /* query */
       $this->query("SHOW TABLES");
